@@ -111,7 +111,7 @@ void DynamicArray::print() const
 void DynamicArray::copyFrom(const DynamicArray& other)
 {
     this->pData = new int[other.capacity];
-    for (int i = 0; i < other.length; i++)
+    for (size_t i = 0; i < other.length; i++)
     {
         pData[i] = other.pData[i];
     }
@@ -152,7 +152,7 @@ DynamicArrayElementProxy::DynamicArrayElementProxy(DynamicArray* arr, size_t ind
 
 DynamicArrayElementProxy::operator int() const
 {
-    this->pParent->getAt(index);
+    return this->pParent->getAt(index);
 }
 
 DynamicArrayElementProxy& DynamicArrayElementProxy::operator=(int value)
