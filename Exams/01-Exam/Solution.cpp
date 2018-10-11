@@ -77,7 +77,9 @@ int main()
     if(doesExist(products, n)) 
     {
         std::cout << "true\n";
-    } else {
+    } 
+    else 
+    {
         std::cout << "false\n";
     }
 
