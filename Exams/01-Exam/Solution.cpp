@@ -60,18 +60,22 @@ bool doesExist(int* arr, int n)
     return false;
 }
 
-int main() {
-    int N;
+int main() 
+{
+    int n;
     int products[10000];
-    std::cin >> N;
+    std::cin >> n;
 
 
-    for (int i = 0; i < N; i++) {
+    for (int i = 0; i < n; i++) 
+    {
         std::cin >> products[i];
     }
-    std::sort(products, products + N);
+    
+    std::sort(products, products + n);
 
-    if(doesExist(products, N)) {
+    if(doesExist(products, n)) 
+    {
         std::cout << "true\n";
     } else {
         std::cout << "false\n";
