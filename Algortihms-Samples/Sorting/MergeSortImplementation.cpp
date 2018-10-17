@@ -52,6 +52,9 @@ void merge(int arr[], int left, int middle, int right)
         j++;
         index++;
     }
+    
+    delete[] leftArr;
+    delete[] rightLength;
 }
 
 void mergeSort(int arr[], int left, int right)
