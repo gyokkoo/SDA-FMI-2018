@@ -64,7 +64,7 @@ public:
         queue.push(root);
 
         while (!queue.empty()) {
-            Node *current = queue.front();
+            Node* current = queue.front();
             std::cout << current->data << " ";
             queue.pop();
 
@@ -75,6 +75,40 @@ public:
                 queue.push(current->right);
             }
         }
+    }
+
+    int maxNode(Node* root) {
+        while (root->right != nullptr) {
+            root = root->right;
+        }
+        return root->data;
+    }
+    
+    int minNode(Node* root) {
+        while (root->left != nullptr) {
+            root = root->left;
+        }
+        return root->data;
+    }
+
+    bool checkBST(Node* root) {
+        if (root == nullptr) {
+            return true;
+        }
+        
+        if (root->left != nullptr && maxNode(root->left) >= root->data) {
+            return false;
+        }
+        
+        if (root->right != nullptr && minNode(root->right) <= root->data) {
+            return false;
+        }
+        
+        if (!checkBST(root->left) || !checkBST(root->right)) {
+            return false;
+        }
+        
+        return true;
     }
 };
 
