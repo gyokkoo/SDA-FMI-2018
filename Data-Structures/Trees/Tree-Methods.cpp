@@ -158,6 +158,135 @@ public:
         return hasPathSum(root->left, sum - root->val) ||
                hasPathSum(root->right, sum - root->val);
     }
+
+    // https://leetcode.com/problems/invert-binary-tree/
+    TreeNode* invertTree(TreeNode* root) {
+        if (root == nullptr) {
+            return root;
+        }
+
+        this->invertTree(root->left);
+        this->invertTree(root->right);
+        std::swap(root->left, root->right);
+        return root;
+    }
+
+    // https://leetcode.com/problems/symmetric-tree/
+    bool isSymmetric(TreeNode* leftRoot, TreeNode* rightRoot) {
+        if (leftRoot == nullptr && rightRoot == nullptr) {
+            return true;
+        }
+        if (leftRoot == nullptr || rightRoot == nullptr) {
+            return false;
+        }
+
+        return (leftRoot->val == rightRoot->val) &&
+               isSymmetric(leftRoot->left, rightRoot->right) &&
+               isSymmetric(leftRoot->right, rightRoot->left);
+    }
+
+    bool isSymmetric(TreeNode* root) {
+        if (root == nullptr) {
+            return true;
+        }
+
+        return isSymmetric(root->left, root->right);
+    }
+
+
+    // https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+    TreeNode* sortedArrayToBST(std::vector<int>& num) {
+        if(num.empty()) {
+            return nullptr;
+        }
+        if(num.size() == 1) {
+            return (new TreeNode(num.at(0)));
+        }
+
+        TreeNode* root = new TreeNode(num.at(num.size() / 2));
+        std::vector<int> leftVector(num.begin(), num.begin() + num.size() / 2);
+        std::vector<int> rightVector(num.begin() + num.size() / 2 + 1, num.end());
+        root->left = sortedArrayToBST(leftVector);
+        root->right = sortedArrayToBST(rightVector);
+
+        return root;
+    }
+
+    // https://leetcode.com/problems/sum-of-left-leaves/
+    bool isLeaf(TreeNode *node)
+    {
+        if (node == nullptr)
+            return false;
+        if (node->left == nullptr && node->right == nullptr)
+            return true;
+        return false;
+    }
+
+    int sumOfLeftLeaves(TreeNode* root) {
+        int sum = 0;
+        if (root == nullptr) {
+            return sum;
+        }
+
+        if (isLeaf(root->left)) {
+            sum += root->left->val;
+        } else {
+            sum += sumOfLeftLeaves(root->left);
+        }
+
+        sum += sumOfLeftLeaves(root->right);
+
+        return sum;
+    }
+
+    // https://leetcode.com/problems/diameter-of-binary-tree/
+    int diameterOfBinaryTree(TreeNode* root) {
+        if (root == nullptr) {
+            return 0;
+        }
+
+        int leftHeight = treeDepth(root->left);
+        int rightHeight = treeDepth(root->right);
+
+        int leftDiameter = diameterOfBinaryTree(root->left);
+        int rightDiameter = diameterOfBinaryTree(root->right);
+
+        return std::max(
+                leftHeight + rightHeight,
+                std::max(leftDiameter, rightDiameter));
+    }
+
+    // https://leetcode.com/problems/merge-two-binary-trees/
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+        if (t1 == nullptr)
+            return t2;
+        if (t2 == nullptr) {
+            return t1;
+        }
+
+        t1->val += t2->val;
+        t1->left = mergeTrees(t1->left, t2->left);
+        t1->right = mergeTrees(t1->right, t2->right);
+        return t1;
+    }
+
+    // https://leetcode.com/problems/binary-tree-inorder-traversal/
+    std::vector<int> inOrderTraversal(TreeNode* root) {
+        std::vector<int> result;
+        if(root == nullptr){
+            return result;
+        }
+        if (root->left != nullptr) {
+            std::vector<int> tempVector = inOrderTraversal(root->left);
+            result.insert(result.end(),tempVector.begin(),tempVector.end());
+        }
+        result.push_back(root->val);
+        if (root->right != nullptr) {
+            std::vector<int> tempVector = inOrderTraversal(root->right);
+            result.insert(result.end(),tempVector.begin(),tempVector.end());
+        }
+        return result;
+    }
 };
 
 
